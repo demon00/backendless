@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="content"> </div>
+    <script type="text/javascript">
+        $.ajax("https://api.backendless.com/v1/data/PORTFOLIO", {
+            "headers": {
+                "application-id": "D258A26A-5BA8-2B3B-FF6A-B0E639EC8E00",
+                "secret-key": "5342FA35-4369-EFC9-FF63-D713F01E6800"
+            },
+            "success": function(R) {
+                console.log(R)
+                var $t = $("<table>");
+                var $thead = $("<thead>");
+                var $tbody = $("<tbody>");
+                $thead.html("<tr><th>name</th><th>url</th><th>comment</th></hr>");
+                $t.append($thead);
+                $("#content").html($t);
+
+                for (var i = 0; i < R.data.length; i++) {
+                    $tbody.append(
+                        ["<tr>",
+                            "<td>",
+                            R.data[i].NameString,
+                            "</td>",
+                            "<td> <a href=\"",
+                            R.data[i].URL,
+                            "\">link</a></td>",
+                            "<td>",
+                            R.data[i].Comment,
+                            "</td>",
+                         "</tr>"
+                        ].join(''))
+                }
+                $t.append($tbody)
+            }
+        });
+    </script>
+</body>
+
+</html>
